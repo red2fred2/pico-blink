@@ -1,6 +1,3 @@
-[submodule "submodules/--force"]
-	path = submodules/--force
-	url = https://github.com/red2fred2/pico-sdk
 [submodule "submodules/pico-sdk"]
 	path = submodules/pico-sdk
 	url = https://github.com/red2fred2/pico-sdk
