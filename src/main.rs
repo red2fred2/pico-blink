@@ -1,11 +1,13 @@
 #![no_std]
 #![no_main]
 
+// Cfg wrapper
+cfg_if::cfg_if! { if #[cfg(not(test))] {
+
 mod usb;
 
 use core::fmt::Write as _;
 use core::panic::PanicInfo;
-
 use embedded_hal::digital::v2::OutputPin;
 use embedded_time::fixed_point::FixedPoint as _;
 use rp2040_hal as hal;
@@ -44,6 +46,7 @@ fn panic(panic_info: &PanicInfo) -> ! {
 	}
 	loop {}
 }
+
 #[cortex_m_rt::entry]
 fn main() -> ! {
 	// Set up hardware
@@ -95,5 +98,15 @@ fn main() -> ! {
 		led_pin.set_low().unwrap();
 		write!(usb, "Off\n").unwrap();
 		delay.delay_ms(500);
+	}
+}
+
+}} // cfg block
+
+#[cfg(test)]
+mod tests{
+	#[test]
+	fn test_test() {
+		assert_eq!(4, 4);
 	}
 }
