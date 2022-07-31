@@ -33,7 +33,10 @@ impl UsbManager {
 
 impl core::fmt::Write for UsbManager {
 	fn write_str(&mut self, s: &str) -> core::fmt::Result {
-		self.serial.write(s.as_bytes()).unwrap();
+		// For now, just ignore any write errors to allow a semi-stable connection
+		// After some amount of data written to the buffer with no place to go,
+		// this throws an error and kills everything
+		self.serial.write(s.as_bytes());
 
 		Ok(())
 	}
